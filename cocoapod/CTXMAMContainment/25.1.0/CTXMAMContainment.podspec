@@ -13,7 +13,7 @@ CTXMAMContainment framework is responsible for controlling access to various dev
         :text => "https://developer.cloud.com/citrix-api-terms-of-use",
         :type => "Custom"
     }
-    s.source = { :http => 'https://raw.githubusercontent.com/citrix/citrix-mam-sdks/main/cocoapod/CTXMAMContainment/24.5.0/CTXMAMContainment.zip' }
+    s.source = { :http => 'https://raw.githubusercontent.com/citrix/citrix-mam-sdks/main/cocoapod/CTXMAMContainment/25.1.0/CTXMAMContainment.zip' }
     s.source_files = 'CTXMAMContainment.xcframework/**/Headers/*.h'
     s.public_header_files = 'CTXMAMContainment.xcframework/**/Headers/*.h'
     s.vendored_frameworks = 'CTXMAMContainment.xcframework'
