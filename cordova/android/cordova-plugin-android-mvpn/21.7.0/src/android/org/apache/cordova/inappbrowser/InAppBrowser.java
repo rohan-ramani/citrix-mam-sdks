@@ -33,7 +33,6 @@ import android.view.WindowManager.LayoutParams;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.CookieManager;
-import android.webkit.CookieSyncManager;
 import android.webkit.HttpAuthHandler;
 import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
@@ -972,7 +971,6 @@ public class InAppBrowser extends CordovaPlugin {
                 settings.setJavaScriptEnabled(true);
                 settings.setJavaScriptCanOpenWindowsAutomatically(true);
                 settings.setBuiltInZoomControls(showZoomControls);
-                settings.setPluginState(android.webkit.WebSettings.PluginState.ON);
 
                 // Add postMessage interface
                 class JsObject {
@@ -1007,11 +1005,6 @@ public class InAppBrowser extends CordovaPlugin {
                 //Toggle whether this is enabled or not!
                 Bundle appSettings = cordova.getActivity().getIntent().getExtras();
                 boolean enableDatabase = appSettings == null ? true : appSettings.getBoolean("InAppBrowserStorageEnabled", true);
-                if (enableDatabase) {
-                    String databasePath = cordova.getActivity().getApplicationContext().getDir("inAppBrowserDB", Context.MODE_PRIVATE).getPath();
-                    settings.setDatabasePath(databasePath);
-                    settings.setDatabaseEnabled(true);
-                }
                 settings.setDomStorageEnabled(true);
 
                 if (clearAllCache) {
@@ -1413,11 +1406,7 @@ public class InAppBrowser extends CordovaPlugin {
             }
 
             // CB-10395 InAppBrowser's WebView not storing cookies reliable to local device storage
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                CookieManager.getInstance().flush();
-            } else {
-                CookieSyncManager.getInstance().sync();
-            }
+            CookieManager.getInstance().flush();
 
             // https://issues.apache.org/jira/browse/CB-11248
             view.clearFocus();
