@@ -101,13 +101,19 @@ def execFiles = fileTree("${buildDir}").matching {
 
 task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'connectedAndroidTest']) {
 	reports {
-		xml.enabled = true
-		html.enabled = true
-		csv.enabled = true
-		html.destination file("${buildDir}/outputs/jacoco")
+		xml {
+			enabled true
+		}
+		html {
+			enabled true
+			destination file("${buildDir}/outputs/jacoco")
+		}
+		csv {
+			enabled true
+		}
 	}
 
-	def classDir = new File("${buildDir}/intermediates/javac/debug/classes")
+	def classDir = new File("${buildDir}/intermediates/javac/debug/compileDebugJavaWithJavac/classes")
 	def sourceDir = new File("src/main/java")
 
 	FileTree exec = fileTree("${buildDir}").matching {
